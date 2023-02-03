@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 env:
-  WEBAPP_PATH: ./src/ASC.Core
+  WEBAPP_PATH: ./source/Presentation.API
   AZURE_WEBAPP_NAME: web-asc-core
   AZURE_WEBAPP_PACKAGE_PATH: "."
 
@@ -24,6 +24,9 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+
+      - name: Format
+        run: dotnet format
 
       - name: Build
         run: dotnet build --no-restore
