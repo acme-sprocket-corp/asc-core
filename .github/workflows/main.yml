@@ -1,0 +1,35 @@
+name: main
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  WEBAPP_PATH: ./src/ASC.Core
+  AZURE_WEBAPP_NAME: web-asc-core
+  AZURE_WEBAPP_PACKAGE_PATH: "."
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Publish
+        run: dotnet publish '${{ env.WEBAPP_PATH }}' -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/app'
