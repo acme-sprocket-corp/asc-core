@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 env:
-  WEBAPP_PATH: ./source/Presentation.API
+  WEBAPP_PATH: ./source/Core.API
   AZURE_WEBAPP_NAME: web-asc-core
   AZURE_WEBAPP_PACKAGE_PATH: "."
 
@@ -20,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
 
       - name: Restore dependencies
         run: dotnet restore
