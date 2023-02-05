@@ -1,7 +1,8 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Microsoft.Extensions.Configuration;
 
-namespace Core.API.Dependencies
+namespace Core.Infrastructure.Secrets
 {
     public class SecretClientFactory
     {

@@ -1,4 +1,5 @@
 using Core.API.Dependencies;
+using Core.Infrastructure.Secrets;
 
 namespace Core.API
 {
@@ -12,6 +13,7 @@ namespace Core.API
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwagger();
+            builder.Services.AddCoreApplication();
             await builder.Services.AddJwtAuthorization(builder.Configuration, secretClient);
             await builder.Services.AddDataAccess(builder.Configuration, secretClient);
 
