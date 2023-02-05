@@ -7,11 +7,13 @@ namespace Core.API
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var secretClient = SecretClientFactory.GetSecretClient(builder.Configuration);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            await builder.Services.AddDataAccess(builder.Configuration);
+            builder.Services.AddSwagger();
+            await builder.Services.AddJwtAuthorization(builder.Configuration, secretClient);
+            await builder.Services.AddDataAccess(builder.Configuration, secretClient);
 
             var app = builder.Build();
 
@@ -21,9 +23,9 @@ namespace Core.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors(policyBuilder => policyBuilder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
-            app.UseAuthorization();
+            app.UseHttpsRedirection();
 
             app.MapControllers();
 
