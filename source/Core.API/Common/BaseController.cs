@@ -17,9 +17,10 @@ namespace Core.API.Common
         {
             IActionResult result;
 
-            if (!ModelState.IsValid)
+            var validationResult = ObjectVerification.Validate(request);
+            if (validationResult.Failed)
             {
-                return BadRequest(ModelState.Values.SelectMany(value => value.Errors).ToList());
+                return BadRequest(validationResult.Errors);
             }
 
             try

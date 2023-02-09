@@ -6,7 +6,6 @@ using Core.Application.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Secrets;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using Moq;
 
 namespace Core.Tests.Unit.Infrastructure.Authentication.Tokens
