@@ -18,7 +18,7 @@ namespace Core.API.Controllers
         [HttpPost("", Name = "CreateCustomer")]
         public Task<IActionResult> CreateCustomer()
         {
-            return Task.FromResult(Ok() as IActionResult);
+            throw new NotImplementedException();
         }
     }
 }

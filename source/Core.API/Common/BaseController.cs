@@ -1,4 +1,5 @@
-﻿using Core.Infrastructure.Exceptions.GlobalExceptionHandler;
+﻿using Core.Application.Common.Responses;
+using Core.Infrastructure.Exceptions.GlobalExceptionHandler;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace Core.API.Common
             _mediator = mediator;
         }
 
-        protected async Task<IActionResult> Execute<TResponse>(IRequest<TResponse> request, Func<TResponse, IActionResult> responseFunc)
+        protected async Task<IActionResult> Execute<TResponse>(IRequest<Envelope<TResponse>> request, Func<Envelope<TResponse>, IActionResult> responseFunc)
         {
             IActionResult result;
 
