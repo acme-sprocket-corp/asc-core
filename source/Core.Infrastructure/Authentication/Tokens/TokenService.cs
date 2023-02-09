@@ -14,11 +14,11 @@ namespace Core.Infrastructure.Authentication.Tokens
         private readonly IConfiguration _configuration;
         private readonly ISecretService _secretService;
 
-        public TokenService(IConfiguration configuration, IClock clock, ISecretService secretService)
+        public TokenService(IClock clock, IConfiguration configuration, ISecretService secretService)
         {
             _clock = clock;
-            _secretService = secretService;
             _configuration = configuration;
+            _secretService = secretService;
         }
 
         public async Task<string> GenerateToken(IEnumerable<Claim> claims)

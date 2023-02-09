@@ -12,7 +12,7 @@ namespace Core.Infrastructure.Secrets
 
             if (keyVaultName == null)
             {
-                throw new ArgumentNullException(nameof(keyVaultName));
+                throw new ArgumentNullException(nameof(keyVaultName), "KeyVault name must not be null.");
             }
 
             return new SecretClient(new Uri(keyVaultName), new DefaultAzureCredential());
