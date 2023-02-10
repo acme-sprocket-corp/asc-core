@@ -1,4 +1,5 @@
 ﻿using Core.API.Common;
+using Core.Application.Customers.AddCustomer;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,9 @@ namespace Core.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("", Name = "CreateCustomer")]
-        public Task<IActionResult> CreateCustomer()
+        public async Task<IActionResult> CreateCustomer(AddCustomerRequest request)
         {
-            throw new NotImplementedException();
+            return await Execute(request, ResponseOptions.OkObject);
         }
     }
 }

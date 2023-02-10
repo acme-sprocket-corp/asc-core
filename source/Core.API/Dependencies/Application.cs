@@ -1,7 +1,9 @@
-﻿using Core.Application.Common.Clock;
+﻿using System.Reflection;
+using Core.Application.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Clock;
 using Core.Infrastructure.Secrets;
+using MediatR;
 
 namespace Core.API.Dependencies
 {
@@ -14,6 +16,8 @@ namespace Core.API.Dependencies
             services.AddSingleton<IClock, SystemClock>();
 
             services.AddTransient<ISecretService, SecretService>();
+
+            services.AddMediatR(Assembly.Load("Core.Application"));
         }
     }
 }
