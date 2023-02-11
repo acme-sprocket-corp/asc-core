@@ -1,4 +1,6 @@
-﻿using Core.Application.Common.Responses;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using Core.Application.Common.Responses;
 using MediatR;
 
 namespace Core.Application.Customers.AddCustomer

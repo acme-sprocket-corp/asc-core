@@ -23,7 +23,7 @@ namespace Core.Tests.Unit.Application.Common.Responses
 
             var envelope = Envelope<TestResponse>.Failure(error, string.Empty);
 
-            Assert.IsNull(envelope.Response);
+            Assert.AreEqual(string.Empty, envelope.ErrorMessage);
             Assert.AreEqual(error, envelope.Status);
         }
     }
