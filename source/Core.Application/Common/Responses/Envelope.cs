@@ -1,28 +1,29 @@
 ﻿namespace Core.Application.Common.Responses
 {
     public class Envelope<TResponse>
+        where TResponse : new()
     {
-        private Envelope(bool isSuccess, Status status, TResponse response)
-        {
-            IsSuccess = isSuccess;
-            Status = status;
-            Response = response;
-        }
+    private Envelope(Status status, TResponse response, string errorMessage)
+    {
+        Status = status;
+        Response = response;
+        ErrorMessage = errorMessage;
+    }
 
-        public bool IsSuccess { get; }
+    public string ErrorMessage { get; }
 
-        public Status Status { get; }
+    public Status Status { get; }
 
-        public TResponse? Response { get; }
+    public TResponse Response { get; }
 
-        public static Envelope<TResponse> Success(TResponse response)
-        {
-            return new Envelope<TResponse>(true, Status.Success, response);
-        }
+    public static Envelope<TResponse> Success(TResponse response)
+    {
+        return new Envelope<TResponse>(Status.Success, response, string.Empty);
+    }
 
-        public static Envelope<TResponse?> Failure(Status status)
-        {
-            return new Envelope<TResponse?>(false, status, default);
-        }
+    public static Envelope<TResponse> Failure(Status status, string errorMessage = "")
+    {
+        return new Envelope<TResponse>(status, new TResponse(), errorMessage);
+    }
     }
 }

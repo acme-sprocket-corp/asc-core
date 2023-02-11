@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Infrastructure.DataAccess
+namespace Core.Infrastructure.DataAccess.Common
 {
     public sealed class ApplicationContext : IdentityDbContext<Customer, IdentityRole<Guid>, Guid>
     {

@@ -15,6 +15,7 @@ namespace Core.API.Common
         }
 
         protected async Task<IActionResult> Execute<TResponse>(IRequest<Envelope<TResponse>> request, Func<Envelope<TResponse>, IActionResult> responseFunc)
+            where TResponse : new()
         {
             IActionResult result;
 

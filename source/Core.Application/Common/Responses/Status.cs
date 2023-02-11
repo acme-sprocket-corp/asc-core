@@ -11,5 +11,10 @@
         /// Entity did not meet validation requirements.
         /// </summary>
         ValidationError = 1,
+
+        /// <summary>
+        /// Error along the Identity/Authentication pipeline.
+        /// </summary>
+        AuthenticationError = 2,
     }
 }

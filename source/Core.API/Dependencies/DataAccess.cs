@@ -1,5 +1,5 @@
 ﻿using Azure.Security.KeyVault.Secrets;
-using Core.Infrastructure.DataAccess;
+using Core.Infrastructure.DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Core.API.Dependencies

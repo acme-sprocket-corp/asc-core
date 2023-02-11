@@ -8,13 +8,12 @@ namespace Core.Tests.Unit.Application.Common.Responses
         [TestMethod]
         public void Success_ReturnsCorrectProperties()
         {
-            const string response = "response";
+            var response = new TestResponse();
 
-            var envelope = Envelope<string>.Success(response);
+            var envelope = Envelope<TestResponse>.Success(response);
 
             Assert.AreEqual(response, envelope.Response);
             Assert.AreEqual(Status.Success, envelope.Status);
-            Assert.IsTrue(envelope.IsSuccess);
         }
 
         [TestMethod]
@@ -22,11 +21,10 @@ namespace Core.Tests.Unit.Application.Common.Responses
         {
             const Status error = Status.ValidationError;
 
-            var envelope = Envelope<string>.Failure(error);
+            var envelope = Envelope<TestResponse>.Failure(error, string.Empty);
 
             Assert.IsNull(envelope.Response);
             Assert.AreEqual(error, envelope.Status);
-            Assert.IsFalse(envelope.IsSuccess);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Azure.Security.KeyVault.Secrets;
 using Core.Domain.Customers;
-using Core.Infrastructure.DataAccess;
+using Core.Infrastructure.DataAccess.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
