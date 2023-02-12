@@ -1,5 +1,6 @@
 ﻿using Core.Application.Common.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -42,12 +43,12 @@ namespace Core.Tests.Unit.API.Common.BaseControllers
         [TestMethod]
         public async Task ExecuteRequest_OnException_ReturnsBadRequest()
         {
-            _mediator.Setup(x => x.Send(It.IsAny<IRequest<TestResponse>>(), CancellationToken.None))
+            _mediator.Setup(x => x.Send(It.IsAny<IRequest<Envelope<TestResponse>>>(), CancellationToken.None))
                 .ThrowsAsync(new Exception());
 
-            var result = await _controller.Handle(TestObjectRequest.InValid());
+            var result = await _controller.Handle(TestObjectRequest.Valid()) as StatusCodeResult;
 
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            Assert.AreEqual(StatusCodes.Status500InternalServerError, result?.StatusCode);
         }
     }
 }
