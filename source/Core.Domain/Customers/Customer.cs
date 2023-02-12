@@ -9,5 +9,9 @@ namespace Core.Domain.Customers
         {
             Email = email;
         }
+
+        private Customer()
+        {
+        }
     }
 }

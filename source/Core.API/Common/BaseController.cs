@@ -17,8 +17,6 @@ namespace Core.API.Common
         protected async Task<IActionResult> Execute<TResponse>(IRequest<Envelope<TResponse>> request, Func<Envelope<TResponse>, IActionResult> responseFunc)
             where TResponse : new()
         {
-            IActionResult result;
-
             var validationResult = ObjectVerification.Validate(request);
             if (validationResult.Failed)
             {
@@ -29,7 +27,16 @@ namespace Core.API.Common
             {
                 var response = await _mediator.Send(request);
 
-                result = responseFunc.Invoke(response);
+                if (response.Status == Status.Success)
+                {
+                    return responseFunc.Invoke(response);
+                }
+
+                return response.Status switch
+                {
+                    Status.ValidationError => new BadRequestObjectResult(response.ErrorMessage),
+                    _ => new BadRequestResult(),
+                };
             }
             catch (Exception exception)
             {
@@ -37,8 +44,6 @@ namespace Core.API.Common
 
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-
-            return result;
         }
     }
 }
