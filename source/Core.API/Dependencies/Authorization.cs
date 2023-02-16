@@ -17,7 +17,7 @@ namespace Core.API.Dependencies
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication();
+            services.AddAuthorization();
 
             var audienceResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Audience"]);
             var issuerResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Issuer"]);
