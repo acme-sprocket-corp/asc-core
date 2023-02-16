@@ -1,5 +1,4 @@
-﻿using Core.Application.Common.Responses;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -29,9 +28,9 @@ namespace Core.Tests.Unit.API.Common.BaseControllers
         [TestMethod]
         public async Task ExecuteRequest_OnSuccess_ReturnsCorrectResult()
         {
-            var response = Envelope<TestResponse>.Success(new TestResponse { Value = "success" });
+            var response = new TestApplicationResponse { Value = "success" };
 
-            _mediator.Setup(x => x.Send(It.IsAny<IRequest<Envelope<TestResponse>>>(), CancellationToken.None))
+            _mediator.Setup(x => x.Send(It.IsAny<IRequest<TestApplicationResponse>>(), CancellationToken.None))
                 .ReturnsAsync(response);
 
             var result = await _controller.Handle(TestObjectRequest.Valid()) as OkObjectResult;
@@ -43,7 +42,7 @@ namespace Core.Tests.Unit.API.Common.BaseControllers
         [TestMethod]
         public async Task ExecuteRequest_OnException_ReturnsBadRequest()
         {
-            _mediator.Setup(x => x.Send(It.IsAny<IRequest<Envelope<TestResponse>>>(), CancellationToken.None))
+            _mediator.Setup(x => x.Send(It.IsAny<IRequest<TestApplicationResponse>>(), CancellationToken.None))
                 .ThrowsAsync(new Exception());
 
             var result = await _controller.Handle(TestObjectRequest.Valid()) as StatusCodeResult;

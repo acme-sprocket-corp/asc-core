@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Application.Common.Responses;
 using MediatR;
 
 namespace Core.Tests.Unit.API.Common.BaseControllers
 {
-    public class TestObjectRequest : IRequest<Envelope<TestResponse>>
+    public class TestObjectRequest : IRequest<TestApplicationResponse>
     {
         [Required(AllowEmptyStrings = false)]
         public string TestField { get; set; } = string.Empty;

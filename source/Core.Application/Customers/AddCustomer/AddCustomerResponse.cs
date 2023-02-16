@@ -1,17 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Core.Application.Common.Responses;
 
 namespace Core.Application.Customers.AddCustomer
 {
-    public class AddCustomerResponse
+    public class AddCustomerResponse : ApplicationResponse
     {
         public AddCustomerResponse(string? username, string? email)
-            : this()
         {
             Username = username;
             Email = email;
         }
 
-        public AddCustomerResponse()
+        public AddCustomerResponse(Status status, string errorMessage)
+            : base(status, errorMessage)
         {
         }
 

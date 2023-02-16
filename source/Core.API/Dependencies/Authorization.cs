@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Azure.Security.KeyVault.Secrets;
 using Core.Domain.Customers;
+using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.DataAccess.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,8 @@ namespace Core.API.Dependencies
             var audienceResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Audience"]);
             var issuerResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Issuer"]);
             var keyResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Key"]);
+
+            services.AddSingleton(_ => new TokenConfiguration(audienceResponse.Value.Value, issuerResponse.Value.Value, keyResponse.Value.Value));
 
             services.AddAuthentication(options =>
             {

@@ -14,8 +14,8 @@ namespace Core.API.Common
             _mediator = mediator;
         }
 
-        protected async Task<IActionResult> Execute<TResponse>(IRequest<Envelope<TResponse>> request, Func<Envelope<TResponse>, IActionResult> responseFunc)
-            where TResponse : new()
+        protected async Task<IActionResult> Execute<TResponse>(IRequest<TResponse> request, Func<TResponse, IActionResult> responseFunc)
+            where TResponse : ApplicationResponse
         {
             IActionResult result;
 

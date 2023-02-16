@@ -12,16 +12,16 @@ namespace Core.Application.Customers.Common
             return new Customer(request.Username, request.Email);
         }
 
-        public Envelope<AddCustomerResponse> CreateCustomerResponse(IdentityResult result, Customer customer)
+        public AddCustomerResponse CreateCustomerResponse(IdentityResult result, Customer customer)
         {
             if (result.Succeeded)
             {
-                return Envelope<AddCustomerResponse>.Success(new AddCustomerResponse(customer.UserName, customer.Email));
+                return new AddCustomerResponse(customer.UserName, customer.Email);
             }
 
             var errors = result.Errors.FirstOrDefault() != null ? result.Errors.First().Description : string.Empty;
 
-            return Envelope<AddCustomerResponse>.Failure(Status.AuthenticationError, errors);
+            return new AddCustomerResponse(Status.AuthenticationError, errors);
         }
     }
 }

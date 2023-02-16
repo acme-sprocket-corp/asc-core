@@ -17,10 +17,11 @@ namespace Core.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("", Name = "CreateCustomer")]
-        public async Task<IActionResult> CreateCustomer(AddCustomerRequest request)
+        [HttpPost("", Name = "AddCustomer")]
+        [ProducesResponseType(typeof(AddCustomerResponse), StatusCodes.Status201Created)]
+        public async Task<IActionResult> AddCustomer(AddCustomerRequest request)
         {
-            return await Execute(request, ResponseOptions.Created);
+            return await Execute(request, ResponseOptions.OkResponse);
         }
     }
 }

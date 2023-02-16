@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Core.Application.Common.Responses;
 using MediatR;
 
 namespace Core.Application.Customers.AddCustomer
 {
-    public class AddCustomerRequest : IRequest<Envelope<AddCustomerResponse>>
+    public class AddCustomerRequest : IRequest<AddCustomerResponse>
     {
         [JsonConstructor]
         public AddCustomerRequest(string username, string email, string password)

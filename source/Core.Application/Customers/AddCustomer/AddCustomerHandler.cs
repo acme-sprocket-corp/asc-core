@@ -1,10 +1,9 @@
-﻿using Core.Application.Common.Responses;
-using Core.Application.Customers.Common;
+﻿using Core.Application.Customers.Common;
 using MediatR;
 
 namespace Core.Application.Customers.AddCustomer
 {
-    internal class AddCustomerHandler : IRequestHandler<AddCustomerRequest, Envelope<AddCustomerResponse>>
+    internal class AddCustomerHandler : IRequestHandler<AddCustomerRequest, AddCustomerResponse>
     {
         private readonly CustomerFactory _customerFactory;
         private readonly ICustomerRepository _customerRepository;
@@ -15,7 +14,7 @@ namespace Core.Application.Customers.AddCustomer
             _customerRepository = customerRepository;
         }
 
-        public async Task<Envelope<AddCustomerResponse>> Handle(AddCustomerRequest request, CancellationToken cancellationToken)
+        public async Task<AddCustomerResponse> Handle(AddCustomerRequest request, CancellationToken cancellationToken)
         {
             var customer = _customerFactory.CreateCustomer(request);
 

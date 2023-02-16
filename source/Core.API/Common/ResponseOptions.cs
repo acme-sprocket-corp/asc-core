@@ -5,34 +5,17 @@ namespace Core.API.Common
 {
     public static class ResponseOptions
     {
-        public static IActionResult OkObject<T>(Envelope<T> envelope)
-            where T : new()
+        public static IActionResult OkResponse(ApplicationResponse applicationResponse)
         {
-            if (envelope.Status == Status.Success)
-            {
-                return new OkObjectResult(envelope.Response);
-            }
-
-            return DetermineResponse(envelope);
+            return DetermineResponse(applicationResponse, result => new OkObjectResult(result));
         }
 
-        public static IActionResult Created<T>(Envelope<T> envelope)
-            where T : new()
+        private static IActionResult DetermineResponse(ApplicationResponse applicationResponse, Func<ApplicationResponse, IActionResult> successFunc)
         {
-            if (envelope.Status == Status.Success)
+            return applicationResponse.Status switch
             {
-                return new CreatedResult(string.Empty, envelope.Response);
-            }
-
-            return DetermineResponse(envelope);
-        }
-
-        private static IActionResult DetermineResponse<T>(Envelope<T> envelope)
-            where T : new()
-        {
-            return envelope.Status switch
-            {
-                Status.ValidationError => new BadRequestObjectResult(envelope),
+                Status.Success => successFunc.Invoke(applicationResponse),
+                Status.ValidationError => new BadRequestObjectResult(applicationResponse),
                 _ => new BadRequestResult(),
             };
         }
