@@ -17,7 +17,7 @@ namespace Core.Tests.Integration.Customers
         {
             var request = new AddCustomerRequest("mjbrad", "mjbrad@brad.com", "Password123!");
 
-            var handler = DependencyHelpers.GetHandler<AddCustomerRequest, Envelope<AddCustomerResponse>>();
+            var handler = DependencyHelpers.GetHandler<AddCustomerRequest, AddCustomerResponse>();
 
             var result = await handler.Handle(request, CancellationToken.None);
 
