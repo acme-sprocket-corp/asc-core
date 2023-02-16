@@ -20,11 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Integration\" />
-    <Folder Include="Unit\Application\Common\Responses\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\source\Core.API\Core.API.csproj" />
     <ProjectReference Include="..\..\source\Core.Infrastructure\Core.Infrastructure.csproj" />
   </ItemGroup>
