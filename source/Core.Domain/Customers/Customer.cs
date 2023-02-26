@@ -13,5 +13,15 @@ namespace Core.Domain.Customers
         private Customer()
         {
         }
+
+        public override string UserName
+        {
+            get => base.UserName ?? throw new NullReferenceException();
+        }
+
+        public override string Email
+        {
+            get => base.Email ?? throw new NullReferenceException();
+        }
     }
 }

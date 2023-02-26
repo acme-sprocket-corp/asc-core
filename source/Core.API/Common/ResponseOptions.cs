@@ -7,14 +7,14 @@ namespace Core.API.Common
     {
         public static IActionResult OkResponse(ApplicationResponse applicationResponse)
         {
-            return DetermineResult(applicationResponse, result => new OkObjectResult(applicationResponse));
+            return DetermineResult(applicationResponse, new OkObjectResult(applicationResponse));
         }
 
-        public static IActionResult DetermineResult(ApplicationResponse applicationResponse, Func<ApplicationResponse, IActionResult> successFunc)
+        public static IActionResult DetermineResult(ApplicationResponse applicationResponse, IActionResult successResult)
         {
             return applicationResponse.Status switch
             {
-                Status.Success => successFunc.Invoke(applicationResponse),
+                Status.Success => successResult,
                 Status.ValidationError => new BadRequestObjectResult(applicationResponse),
                 _ => new BadRequestResult(),
             };
