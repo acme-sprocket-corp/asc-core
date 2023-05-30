@@ -5,7 +5,6 @@ using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Clock;
 using Core.Infrastructure.DataAccess.Customers;
 using Core.Infrastructure.Secrets;
-using MediatR;
 
 namespace Core.API.Dependencies
 {
@@ -19,7 +18,7 @@ namespace Core.API.Dependencies
 
             services.AddTransient<ISecretService, SecretService>();
 
-            services.AddMediatR(Assembly.Load("Core.Application"));
+            services.AddMediatR(x => x.RegisterServicesFromAssemblies(Assembly.Load("Core.Application")));
 
             // Customers
             services.AddTransient<ICustomerRepository, CustomerRepository>();

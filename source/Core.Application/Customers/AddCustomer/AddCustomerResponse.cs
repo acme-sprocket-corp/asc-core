@@ -5,21 +5,21 @@ namespace Core.Application.Customers.AddCustomer
 {
     public class AddCustomerResponse : ApplicationResponse
     {
-        public AddCustomerResponse(string username, string email)
+        public AddCustomerResponse(string userName, string email)
         {
-            Username = username;
+            UserName = userName;
             Email = email;
         }
 
         public AddCustomerResponse(Status status, string errorMessage)
             : base(status, errorMessage)
         {
-            Username = string.Empty;
+            UserName = string.Empty;
             Email = string.Empty;
         }
 
         [Required]
-        public string Username { get; }
+        public string UserName { get; }
 
         [Required]
         public string Email { get; }

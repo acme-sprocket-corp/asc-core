@@ -4,8 +4,8 @@ namespace Core.Domain.Customers
 {
     public sealed class Customer : IdentityUser<Guid>
     {
-        public Customer(string username, string email)
-            : base(username)
+        public Customer(string userName, string email)
+            : base(userName)
         {
             Email = email;
         }
