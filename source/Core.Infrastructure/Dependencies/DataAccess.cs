@@ -1,8 +1,10 @@
 ﻿using Azure.Security.KeyVault.Secrets;
 using Core.Infrastructure.DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.API.Dependencies
+namespace Core.Infrastructure.Dependencies
 {
     public static class DataAccess
     {

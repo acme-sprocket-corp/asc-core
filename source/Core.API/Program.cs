@@ -1,4 +1,4 @@
-using Core.API.Dependencies;
+using Core.Infrastructure.Dependencies;
 using Core.Infrastructure.Secrets;
 
 namespace Core.API

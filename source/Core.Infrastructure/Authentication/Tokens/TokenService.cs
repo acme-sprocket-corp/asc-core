@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Core.Application.Common.Clock;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +18,7 @@ namespace Core.Infrastructure.Authentication.Tokens
             _tokenConfiguration = tokenConfiguration;
         }
 
-        public string GenerateToken(IEnumerable<Claim> claims)
+        public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenConfiguration.Key));
 
@@ -32,6 +33,18 @@ namespace Core.Infrastructure.Authentication.Tokens
                 credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+
+            using (var generator = RandomNumberGenerator.Create())
+            {
+                generator.GetBytes(randomNumber);
+
+                return Convert.ToBase64String(randomNumber);
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.Tokens
 
             var service = new TokenService(_clock.Object, tokenConfiguration);
 
-            var tokenResult = service.GenerateToken(Enumerable.Empty<Claim>());
+            var tokenResult = service.GenerateAccessToken(Enumerable.Empty<Claim>());
 
             var decoded = new JwtSecurityTokenHandler().ReadJwtToken(tokenResult);
 

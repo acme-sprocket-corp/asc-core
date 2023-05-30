@@ -4,6 +4,8 @@ namespace Core.Infrastructure.Authentication.Tokens
 {
     public interface ITokenService
     {
-        public string GenerateToken(IEnumerable<Claim> claims);
+        public string GenerateAccessToken(IEnumerable<Claim> claims);
+
+        public string GenerateRefreshToken();
     }
 }

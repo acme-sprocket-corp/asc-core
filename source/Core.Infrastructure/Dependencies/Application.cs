@@ -5,8 +5,9 @@ using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Clock;
 using Core.Infrastructure.DataAccess.Customers;
 using Core.Infrastructure.Secrets;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.API.Dependencies
+namespace Core.Infrastructure.Dependencies
 {
     public static class Application
     {
