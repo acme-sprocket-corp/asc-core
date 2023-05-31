@@ -7,15 +7,15 @@ namespace Core.Application.Customers.AddCustomer
     public class AddCustomerRequest : IRequest<AddCustomerResponse>
     {
         [JsonConstructor]
-        public AddCustomerRequest(string username, string email, string password)
+        public AddCustomerRequest(string userName, string email, string password)
         {
-            Username = username;
+            UserName = userName;
             Email = email;
             Password = password;
         }
 
         [Required(AllowEmptyStrings = false)]
-        public string Username { get; }
+        public string UserName { get; }
 
         [Required(AllowEmptyStrings = false)]
         [EmailAddress]

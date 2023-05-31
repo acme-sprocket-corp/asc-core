@@ -17,5 +17,10 @@ namespace Core.Infrastructure.DataAccess.Customers
         {
             return await _userManager.CreateAsync(customer, password);
         }
+
+        public async Task<IdentityResult> UpdateCustomer(Customer customer)
+        {
+            return await _userManager.UpdateAsync(customer);
+        }
     }
 }

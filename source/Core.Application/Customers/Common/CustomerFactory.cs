@@ -9,7 +9,7 @@ namespace Core.Application.Customers.Common
     {
         public Customer CreateCustomer(AddCustomerRequest request)
         {
-            return new Customer(request.Username, request.Email);
+            return new Customer(request.UserName, request.Email);
         }
 
         public AddCustomerResponse CreateCustomerResponse(IdentityResult result, Customer customer)

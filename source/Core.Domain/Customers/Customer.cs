@@ -14,6 +14,8 @@ namespace Core.Domain.Customers
         {
         }
 
+        public string? RefreshToken { get; private set; }
+
         public override string UserName
         {
             get => base.UserName ?? throw new NullReferenceException();
@@ -22,6 +24,11 @@ namespace Core.Domain.Customers
         public override string Email
         {
             get => base.Email ?? throw new NullReferenceException();
+        }
+
+        public void UpdateRefreshToken(string refreshToken)
+        {
+            RefreshToken = refreshToken;
         }
     }
 }
