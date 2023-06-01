@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Core.Domain.Common.Clock;
+using Microsoft.AspNetCore.Identity;
 
 namespace Core.Domain.Customers
 {
@@ -16,6 +17,8 @@ namespace Core.Domain.Customers
 
         public string? RefreshToken { get; private set; }
 
+        public DateTime RefreshTokenExpiration { get; private set; }
+
         public override string UserName
         {
             get => base.UserName ?? throw new NullReferenceException();
@@ -26,9 +29,18 @@ namespace Core.Domain.Customers
             get => base.Email ?? throw new NullReferenceException();
         }
 
-        public void UpdateRefreshToken(string refreshToken)
+        public void UpdateRefreshToken(string refreshToken, IClock clock)
         {
+            const int clockSkew = 15;
+
             RefreshToken = refreshToken;
+            RefreshTokenExpiration = clock.UtcNow().AddMinutes(clockSkew);
+        }
+
+        public void ResetRefreshToken(IClock clock)
+        {
+            RefreshToken = null;
+            RefreshTokenExpiration = clock.UtcNow();
         }
     }
 }

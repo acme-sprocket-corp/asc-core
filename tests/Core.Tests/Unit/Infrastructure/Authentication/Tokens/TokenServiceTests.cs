@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Core.Application.Common.Clock;
+using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
 using Moq;
 

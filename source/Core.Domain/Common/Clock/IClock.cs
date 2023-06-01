@@ -1,4 +1,4 @@
-﻿namespace Core.Application.Common.Clock
+﻿namespace Core.Domain.Common.Clock
 {
     public interface IClock
     {

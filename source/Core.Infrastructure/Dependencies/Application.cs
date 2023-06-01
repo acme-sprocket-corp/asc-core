@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Core.Application.Common.Clock;
 using Core.Application.Customers.Common;
+using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Clock;
 using Core.Infrastructure.DataAccess.Customers;

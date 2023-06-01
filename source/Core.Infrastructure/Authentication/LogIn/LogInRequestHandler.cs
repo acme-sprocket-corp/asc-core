@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
+using Core.Domain.Common.Clock;
 using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.Tokens;
 using MediatR;
@@ -10,12 +11,14 @@ namespace Core.Infrastructure.Authentication.LogIn
 {
     internal class LogInRequestHandler : IRequestHandler<LogInRequest, LogInResponse>
     {
+        private readonly IClock _clock;
         private readonly ITokenService _tokenService;
         private readonly ICustomerRepository _customerRepository;
         private readonly UserManager<Customer> _userManager;
 
-        public LogInRequestHandler(ITokenService tokenService, ICustomerRepository customerRepository, UserManager<Customer> userManager)
+        public LogInRequestHandler(IClock clock, ITokenService tokenService, ICustomerRepository customerRepository, UserManager<Customer> userManager)
         {
+            _clock = clock;
             _tokenService = tokenService;
             _customerRepository = customerRepository;
             _userManager = userManager;
@@ -46,7 +49,7 @@ namespace Core.Infrastructure.Authentication.LogIn
 
             var refreshToken = _tokenService.GenerateRefreshToken();
 
-            customer.UpdateRefreshToken(refreshToken);
+            customer.UpdateRefreshToken(refreshToken, _clock);
 
             await _customerRepository.UpdateCustomer(customer);
 

@@ -1,4 +1,4 @@
-﻿using Core.Application.Common.Clock;
+﻿using Core.Domain.Common.Clock;
 
 namespace Core.Infrastructure.Clock
 {

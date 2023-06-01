@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Core.Application.Common.Clock;
+using Core.Domain.Common.Clock;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Infrastructure.Authentication.Tokens
