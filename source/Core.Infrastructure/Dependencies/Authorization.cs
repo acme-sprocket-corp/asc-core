@@ -1,11 +1,9 @@
 ﻿using System.Text;
-using Azure.Security.KeyVault.Secrets;
 using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.DataAccess.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,7 +11,7 @@ namespace Core.Infrastructure.Dependencies
 {
     public static class Authorization
     {
-        public static Task AddJwtAuthorization(this IServiceCollection services, TokenConfiguration tokenConfiguration)
+        public static void AddJwtAuthorization(this IServiceCollection services, TokenConfiguration tokenConfiguration)
         {
             services.AddIdentity<Customer, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationContext>()
@@ -45,8 +43,6 @@ namespace Core.Infrastructure.Dependencies
                     ClockSkew = TimeSpan.Zero,
                 };
             });
-
-            return Task.CompletedTask;
         }
     }
 }

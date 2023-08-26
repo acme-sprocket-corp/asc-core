@@ -16,7 +16,7 @@ namespace Core.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwagger();
             builder.Services.AddCoreApplication();
-            await builder.Services.AddJwtAuthorization(tokenConfiguration);
+            builder.Services.AddJwtAuthorization(tokenConfiguration);
             builder.Services.AddDataAccess(connectionString);
 
             var app = builder.Build();
