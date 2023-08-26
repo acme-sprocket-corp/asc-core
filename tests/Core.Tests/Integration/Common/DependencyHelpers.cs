@@ -9,15 +9,17 @@ namespace Core.Tests.Integration.Common
 {
     public static class DependencyHelpers
     {
+        private static IServiceProvider? _provider;
+
         public static IRequestHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
             where TRequest : IRequest<TResponse>
         {
-            return BuildDependencies().GetRequiredService<IRequestHandler<TRequest, TResponse>>();
+            return Container().GetRequiredService<IRequestHandler<TRequest, TResponse>>();
         }
 
         public static ApplicationContext GetDatabaseContext()
         {
-            return BuildDependencies().GetRequiredService<ApplicationContext>();
+            return Container().GetRequiredService<ApplicationContext>();
         }
 
         public static void ClearDatabase()
@@ -29,24 +31,29 @@ namespace Core.Tests.Integration.Common
             context.SaveChanges();
         }
 
-        private static IServiceProvider BuildDependencies()
+        private static IServiceProvider Container()
         {
-            var services = new ServiceCollection();
+            if (_provider == null)
+            {
+                var services = new ServiceCollection();
 
-            services.AddCoreApplication();
+                services.AddCoreApplication();
 
-            services.AddIdentity<Customer, IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
+                services.AddIdentity<Customer, IdentityRole<Guid>>()
+                    .AddEntityFrameworkStores<ApplicationContext>()
+                    .AddDefaultTokenProviders();
 
-            services.AddAuthentication();
+                services.AddAuthentication();
 
-            services.AddLogging();
+                services.AddLogging();
 
-            services.AddSqlServer<ApplicationContext>(
-                "Server=(localdb)\\mssqllocaldb;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true");
+                services.AddSqlServer<ApplicationContext>(
+                    "Server=(localdb)\\mssqllocaldb;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true");
 
-            return services.BuildServiceProvider();
+                _provider = services.BuildServiceProvider();
+            }
+
+            return _provider;
         }
 }
 }

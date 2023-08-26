@@ -13,7 +13,7 @@ namespace Core.Infrastructure.Dependencies
 {
     public static class Authorization
     {
-        public static Task AddJwtAuthorization(this IServiceCollection services, IConfiguration configuration, SecretClient client)
+        public static Task AddJwtAuthorization(this IServiceCollection services, TokenConfiguration tokenConfiguration)
         {
             services.AddIdentity<Customer, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationContext>()
@@ -21,16 +21,7 @@ namespace Core.Infrastructure.Dependencies
 
             services.AddAuthorization();
 
-            // var audienceResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Audience"]);
-
-            // var issuerResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Issuer"]);
-
-            // var keyResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Security:Key"]);
-            var audience = configuration["KeyVault:Secrets:Security:Audience"] ?? string.Empty;
-            var issuer = configuration["KeyVault:Secrets:Security:Issuer"] ?? string.Empty;
-            var key = configuration["KeyVault:Secrets:Security:Key"] ?? string.Empty;
-
-            services.AddSingleton(_ => new TokenConfiguration(audience, issuer, key));
+            services.AddSingleton(_ => tokenConfiguration);
 
             services.AddAuthentication(options =>
             {
@@ -46,10 +37,10 @@ namespace Core.Infrastructure.Dependencies
                 {
                     ValidateAudience = true,
                     ValidateIssuer = true,
-                    ValidAudience = audience,
-                    ValidIssuer = issuer,
+                    ValidAudience = tokenConfiguration.Audience,
+                    ValidIssuer = tokenConfiguration.Issuer,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfiguration.Key)),
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
                 };

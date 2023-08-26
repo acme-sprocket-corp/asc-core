@@ -1,19 +1,14 @@
-﻿using Azure.Security.KeyVault.Secrets;
-using Core.Infrastructure.DataAccess.Common;
+﻿using Core.Infrastructure.DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Infrastructure.Dependencies
 {
     public static class DataAccess
     {
-        public static Task AddDataAccess(this IServiceCollection services, IConfiguration configuration, SecretClient client)
+        public static void AddDataAccess(this IServiceCollection services, string connectionString)
         {
-            // var secretResponse = await client.GetSecretAsync(configuration["KeyVault:Secrets:Database"]);
-            services.AddDbContext<ApplicationContext>(builder => builder.UseSqlServer(configuration.GetConnectionString("Database")));
-
-            return Task.CompletedTask;
+            services.AddDbContext<ApplicationContext>(builder => builder.UseSqlServer(connectionString));
         }
     }
 }

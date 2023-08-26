@@ -8,14 +8,16 @@ namespace Core.API
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var secretClient = SecretClientFactory.GetSecretClient(builder.Configuration);
+            var secretFactory = new SecretClientFactory(builder.Configuration);
+            var connectionString = await secretFactory.GetConnectionString();
+            var tokenConfiguration = await secretFactory.GetTokenConfiguration();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwagger();
             builder.Services.AddCoreApplication();
-            await builder.Services.AddJwtAuthorization(builder.Configuration, secretClient);
-            await builder.Services.AddDataAccess(builder.Configuration, secretClient);
+            await builder.Services.AddJwtAuthorization(tokenConfiguration);
+            builder.Services.AddDataAccess(connectionString);
 
             var app = builder.Build();
 

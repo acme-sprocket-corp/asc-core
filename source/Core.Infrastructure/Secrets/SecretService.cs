@@ -9,7 +9,7 @@ namespace Core.Infrastructure.Secrets
 
         public SecretService(IConfiguration configuration)
         {
-            _secretClient = SecretClientFactory.GetSecretClient(configuration);
+            _secretClient = SecretClientFactory.GetConnectionString(configuration);
         }
 
         public async Task<Azure.Response<KeyVaultSecret>> GetSecretAsync(string secretKey)

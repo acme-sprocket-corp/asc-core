@@ -19,7 +19,9 @@ namespace Core.Infrastructure.Dependencies
 
             services.AddTransient<ISecretService, SecretService>();
 
-            services.AddMediatR(x => x.RegisterServicesFromAssemblies(Assembly.Load("Core.Application"), Assembly.Load("Core.Infrastructure")));
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(
+                Assembly.Load("Core.Application"),
+                Assembly.Load("Core.Infrastructure")));
 
             // Customers
             services.AddTransient<ICustomerRepository, CustomerRepository>();
