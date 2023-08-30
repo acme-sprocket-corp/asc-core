@@ -2,38 +2,49 @@
 using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
-using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.Tokens;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
-    internal class LogInRequestHandler : IRequestHandler<LogInRequest, LogInResponse>
+    /// <summary>
+    /// A handler for <see cref="LogInRequest"/> that returns a <see cref="LogInResponse"/>.
+    /// </summary>
+    public class LogInRequestHandler : IRequestHandler<LogInRequest, LogInResponse>
     {
         private readonly IClock _clock;
         private readonly ITokenService _tokenService;
         private readonly ICustomerRepository _customerRepository;
-        private readonly UserManager<Customer> _userManager;
 
-        public LogInRequestHandler(IClock clock, ITokenService tokenService, ICustomerRepository customerRepository, UserManager<Customer> userManager)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogInRequestHandler"/> class.
+        /// </summary>
+        /// <param name="clock">An instance of the <see cref="IClock"/> interface.</param>
+        /// <param name="tokenService">An instance of the <see cref="ITokenService"/> interface.</param>
+        /// <param name="customerRepository">An instance of the <see cref="ICustomerRepository"/> interface.</param>
+        public LogInRequestHandler(IClock clock, ITokenService tokenService, ICustomerRepository customerRepository)
         {
             _clock = clock;
             _tokenService = tokenService;
             _customerRepository = customerRepository;
-            _userManager = userManager;
         }
 
+        /// <summary>
+        /// The handler method for the <see cref="LogInRequest"/> object.
+        /// </summary>
+        /// <param name="request">An instance of type <see cref="LogInRequest"/>.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
+        /// <returns>A <see cref="Task"/> of type <see cref="LogInResponse"/> that represents the operation.</returns>
         public async Task<LogInResponse> Handle(LogInRequest request, CancellationToken cancellationToken)
         {
-            var customer = await _userManager.FindByNameAsync(request.UserName);
+            var customer = await _customerRepository.FindCustomerByName(request.UserName);
 
             if (customer == null)
             {
                 return new LogInResponse(Status.AuthenticationError, "UserName does not exist.");
             }
 
-            var isPasswordCorrect = await _userManager.CheckPasswordAsync(customer, request.Password);
+            var isPasswordCorrect = await _customerRepository.CheckCustomerPassword(customer, request.Password);
 
             if (!isPasswordCorrect)
             {

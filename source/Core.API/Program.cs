@@ -3,8 +3,16 @@ using Core.Infrastructure.Secrets;
 
 namespace Core.API
 {
+    /// <summary>
+    /// Entry class for the application.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point for the Web application.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

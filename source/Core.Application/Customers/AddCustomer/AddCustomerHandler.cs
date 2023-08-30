@@ -1,26 +1,48 @@
-﻿using Core.Application.Customers.Common;
+﻿using Core.Application.Common.Responses;
+using Core.Application.Customers.Common;
+using Core.Domain.Customers;
 using MediatR;
 
 namespace Core.Application.Customers.AddCustomer
 {
-    internal class AddCustomerHandler : IRequestHandler<AddCustomerRequest, AddCustomerResponse>
+    /// <summary>
+    /// A handler for <see cref="AddCustomerRequest"/> that returns a <see cref="AddCustomerResponse"/>.
+    /// </summary>
+    public class AddCustomerHandler : IRequestHandler<AddCustomerRequest, AddCustomerResponse>
     {
-        private readonly CustomerFactory _customerFactory;
         private readonly ICustomerRepository _customerRepository;
 
-        public AddCustomerHandler(CustomerFactory customerFactory, ICustomerRepository customerRepository)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddCustomerHandler"/> class.
+        /// </summary>
+        /// <param name="customerRepository">An instance of the <see cref="ICustomerRepository"/> interface.</param>
+        public AddCustomerHandler(ICustomerRepository customerRepository)
         {
-            _customerFactory = customerFactory;
             _customerRepository = customerRepository;
         }
 
+        /// <summary>
+        /// The handler method for the <see cref="AddCustomerRequest"/> object.
+        /// </summary>
+        /// <param name="request">An instance of type <see cref="AddCustomerRequest"/>.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
+        /// <returns>A <see cref="Task"/> of type <see cref="AddCustomerResponse"/> that represents the operation.</returns>
         public async Task<AddCustomerResponse> Handle(AddCustomerRequest request, CancellationToken cancellationToken)
         {
-            var customer = _customerFactory.CreateCustomer(request);
+            var passwordValidator = new PasswordValidator();
+
+            var validationResult = await passwordValidator.ValidateAsync(request.Password, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                return new AddCustomerResponse(Status.AuthenticationError, validationResult.Errors.First().ErrorMessage);
+            }
+
+            var customer = CustomerFactory.CreateCustomer(request);
 
             var result = await _customerRepository.AddCustomer(customer, request.Password);
 
-            return _customerFactory.CreateCustomerResponse(result, customer);
+            return CustomerFactory.CreateCustomerResponse(result, customer);
         }
     }
 }

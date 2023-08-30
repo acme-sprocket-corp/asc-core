@@ -9,13 +9,27 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Infrastructure.Dependencies
 {
+    /// <summary>
+    /// Class for Auth related dependencies.
+    /// </summary>
     public static class Authorization
     {
+        /// <summary>
+        /// Adds Auth related dependencies to the IOC container.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> container.</param>
+        /// <param name="tokenConfiguration">A <see cref="TokenConfiguration"/> instance to configure token properties.</param>
         public static void AddJwtAuthorization(this IServiceCollection services, TokenConfiguration tokenConfiguration)
         {
             services.AddIdentity<Customer, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequiredLength = PasswordRequirements.MinimumPasswordLength;
+            });
 
             services.AddAuthorization();
 

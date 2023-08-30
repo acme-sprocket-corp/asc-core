@@ -5,14 +5,28 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Core.Application.Customers.Common
 {
-    public class CustomerFactory
+    /// <summary>
+    /// A factory for objects and responses related to a <see cref="Customer"/>.
+    /// </summary>
+    public static class CustomerFactory
     {
-        public Customer CreateCustomer(AddCustomerRequest request)
+        /// <summary>
+        /// Creates a new <see cref="Customer"/> from a <see cref="AddCustomerRequest"/>.
+        /// </summary>
+        /// <param name="request">An instance of <see cref="AddCustomerRequest"/>.</param>
+        /// <returns>A new <see cref="Customer"/> instance.</returns>
+        public static Customer CreateCustomer(AddCustomerRequest request)
         {
             return new Customer(request.UserName, request.Email);
         }
 
-        public AddCustomerResponse CreateCustomerResponse(IdentityResult result, Customer customer)
+        /// <summary>
+        /// Creates a new <see cref="AddCustomerResponse"/> from an <see cref="IdentityResult"/> and <see cref="Customer"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="IdentityResult"/> from object creation.</param>
+        /// <param name="customer">The initial <see cref="Customer"/> being added to persistence.</param>
+        /// <returns>A new <see cref="AddCustomerResponse"/> instance.</returns>
+        public static AddCustomerResponse CreateCustomerResponse(IdentityResult result, Customer customer)
         {
             if (result.Succeeded)
             {
