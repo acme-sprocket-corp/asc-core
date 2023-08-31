@@ -4,6 +4,7 @@ using Core.Domain.Common.Clock;
 using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.LogIn;
 using Core.Infrastructure.Authentication.Tokens;
+using Core.Tests.Common;
 using Moq;
 
 namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
@@ -27,7 +28,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
         [TestMethod]
         public async Task Handle_NullCustomer_ReturnsCorrectResponse()
         {
-            _customerRepository.Setup(x => x.FindCustomerByName(It.IsAny<string>()))
+            _customerRepository.Setup(repository => repository.FindCustomerByName(It.IsAny<string>()))
                 .ReturnsAsync(() => null);
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
@@ -38,10 +39,10 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
         [TestMethod]
         public async Task Handle_IncorrectPassword_ReturnsCorrectResponse()
         {
-            _customerRepository.Setup(x => x.FindCustomerByName(It.IsAny<string>()))
-                .ReturnsAsync(new Customer(string.Empty, string.Empty));
+            _customerRepository.Setup(repository => repository.FindCustomerByName(It.IsAny<string>()))
+                .ReturnsAsync(Utilities.ValidCustomer());
 
-            _customerRepository.Setup(x => x.CheckCustomerPassword(It.IsAny<Customer>(), It.IsAny<string>()))
+            _customerRepository.Setup(repository => repository.CheckCustomerPassword(It.IsAny<Customer>(), It.IsAny<string>()))
                 .ReturnsAsync(() => false);
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
@@ -52,10 +53,10 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
         [TestMethod]
         public async Task Handle_ReturnsCorrectResponse()
         {
-            _customerRepository.Setup(x => x.FindCustomerByName(It.IsAny<string>()))
-                .ReturnsAsync(new Customer(string.Empty, string.Empty));
+            _customerRepository.Setup(repository => repository.FindCustomerByName(It.IsAny<string>()))
+                .ReturnsAsync(Utilities.ValidCustomer());
 
-            _customerRepository.Setup(x => x.CheckCustomerPassword(It.IsAny<Customer>(), It.IsAny<string>()))
+            _customerRepository.Setup(repository => repository.CheckCustomerPassword(It.IsAny<Customer>(), It.IsAny<string>()))
                 .ReturnsAsync(() => true);
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);

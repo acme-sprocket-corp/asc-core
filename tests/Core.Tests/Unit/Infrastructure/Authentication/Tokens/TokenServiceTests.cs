@@ -21,7 +21,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.Tokens
         {
             const string audience = "tokenAudience";
             const string issuer = "tokenIssuer";
-            const string key = "thisIsMyTestTokenKey";
+            const string key = "thisIsMyTestTokenKey12837superSecret81727!";
 
             var tokenConfiguration = new TokenConfiguration(audience, issuer, key);
 
