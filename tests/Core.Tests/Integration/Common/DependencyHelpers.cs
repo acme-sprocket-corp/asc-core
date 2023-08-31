@@ -49,8 +49,10 @@ namespace Core.Tests.Integration.Common
 
                 services.AddLogging();
 
-                services.AddDbContext<ApplicationContext>(builder => builder.UseSqlServer(
-                    "Server=.\\SQLExpress;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True;TrustServerCertificate=true"));
+                var connectionString = Environment.GetEnvironmentVariable("SQL_SERVER_CONNECTION_STRING") ??
+                                       "Server=.\\SQLExpress;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True;TrustServerCertificate=true";
+
+                services.AddDbContext<ApplicationContext>(builder => builder.UseSqlServer(connectionString));
 
                 _provider = services.BuildServiceProvider();
             }

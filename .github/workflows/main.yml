@@ -31,6 +31,12 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
+      - name: Install SQL Server
+        uses: Particular/install-sql-server-action@v1.0.0
+        with:
+          connection-string-env-var: SQL_SERVER_CONNECTION_STRING
+          catalog: ASC.Tests
+
       - name: Test
         run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:Threshold=100 /p:ThresholdType=branch
 
