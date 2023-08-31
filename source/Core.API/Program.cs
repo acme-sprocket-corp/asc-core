@@ -1,5 +1,6 @@
+using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Dependencies;
-using Core.Infrastructure.Secrets;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Core.API
 {
@@ -16,16 +17,25 @@ namespace Core.API
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var secretFactory = new SecretClientFactory(builder.Configuration);
-            var connectionString = await secretFactory.GetConnectionString();
-            var tokenConfiguration = await secretFactory.GetTokenConfiguration();
+
+            // var secretFactory = new SecretClientFactory(builder.Configuration);
+            // var connectionString = await secretFactory.GetConnectionString();
+            // var tokenConfiguration = await secretFactory.GetTokenConfiguration();
+            var tokenConfiguration = new TokenConfiguration(
+                builder.Configuration["KeyVault:Secrets:Security:Audience"] ?? string.Empty,
+                builder.Configuration["KeyVault:Secrets:Security:Issuer"] ?? string.Empty,
+                builder.Configuration["KeyVault:Secrets:Security:Key"] ?? string.Empty);
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwagger();
             builder.Services.AddCoreApplication();
             builder.Services.AddJwtAuthorization(tokenConfiguration);
-            builder.Services.AddDataAccess(connectionString);
+            builder.Services.AddDataAccess(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             var app = builder.Build();
 

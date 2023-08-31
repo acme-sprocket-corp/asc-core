@@ -3,8 +3,15 @@ using Microsoft.OpenApi.Models;
 
 namespace Core.Infrastructure.Dependencies
 {
+    /// <summary>
+    /// Adds all Swagger dependencies.
+    /// </summary>
     public static class Swagger
     {
+        /// <summary>
+        /// Adds all Swagger related dependencies.
+        /// </summary>
+        /// <param name="services">The IOC container.</param>
         public static void AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>

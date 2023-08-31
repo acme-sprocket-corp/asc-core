@@ -4,20 +4,24 @@ using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Clock;
 using Core.Infrastructure.DataAccess.Customers;
-using Core.Infrastructure.Secrets;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Infrastructure.Dependencies
 {
+    /// <summary>
+    /// Adds all dependencies for the application layer.
+    /// </summary>
     public static class Application
     {
+        /// <summary>
+        /// Adds dependencies for the application layer.
+        /// </summary>
+        /// <param name="services">The service container.</param>
         public static void AddCoreApplication(this IServiceCollection services)
         {
             services.AddTransient<ITokenService, TokenService>();
 
             services.AddSingleton<IClock, SystemClock>();
-
-            services.AddTransient<ISecretService, SecretService>();
 
             services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(
                 Assembly.Load("Core.Application"),
@@ -25,7 +29,6 @@ namespace Core.Infrastructure.Dependencies
 
             // Customers
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<CustomerFactory>();
         }
     }
 }

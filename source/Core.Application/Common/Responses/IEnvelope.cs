@@ -15,5 +15,10 @@
         /// Gets the status of the operation.
         /// </summary>
         public ApplicationStatus Status { get; }
+
+        /// <summary>
+        /// Gets the error details for the operation.
+        /// </summary>
+        public string Detail { get; }
     }
 }

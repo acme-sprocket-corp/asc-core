@@ -7,17 +7,24 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Core.Infrastructure.Authentication.Tokens
 {
+    /// <inheritdoc />
     public class TokenService : ITokenService
     {
         private readonly IClock _clock;
         private readonly TokenConfiguration _tokenConfiguration;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenService"/> class.
+        /// </summary>
+        /// <param name="clock">An instance of the <see cref="IClock"/> interface.</param>
+        /// <param name="tokenConfiguration">The <see cref="TokenConfiguration"/> used for token creation.</param>
         public TokenService(IClock clock, TokenConfiguration tokenConfiguration)
         {
             _clock = clock;
             _tokenConfiguration = tokenConfiguration;
         }
 
+        /// <inheritdoc/>
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenConfiguration.Key));
@@ -35,6 +42,7 @@ namespace Core.Infrastructure.Authentication.Tokens
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
 
+        /// <inheritdoc/>
         public string GenerateRefreshToken()
         {
             var randomNumber = new byte[64];

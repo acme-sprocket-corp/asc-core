@@ -24,9 +24,21 @@ namespace Core.Domain.Customers
             validator.ValidateAndThrow(this);
         }
 
-        private Customer()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Customer"/> class from persistence.
+        /// </summary>
+        /// <param name="id">The entity identifier.</param>
+        /// <param name="userName">The customer userName.</param>
+        /// <param name="email">The customer email.</param>
+        /// <param name="refreshToken">The refresh token for access.</param>
+        /// <param name="refreshTokenExpiration">The refresh token expiration timestamp.</param>
+        public Customer(Guid id, string userName, string email, string refreshToken, DateTime refreshTokenExpiration)
         {
-            RefreshToken = string.Empty;
+            Id = id;
+            UserName = userName;
+            Email = email;
+            RefreshToken = refreshToken;
+            RefreshTokenExpiration = refreshTokenExpiration;
         }
 
         /// <summary>

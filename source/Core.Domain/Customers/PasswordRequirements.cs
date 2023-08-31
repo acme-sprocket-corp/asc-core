@@ -15,6 +15,6 @@ namespace Core.Domain.Customers
         /// <summary>
         /// Gets a string for <see cref="Regex"/> that must contain at least one lowercase, one uppercase, one number, and one special character.
         /// </summary>
-        public const string PasswordRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-])$";
+        public const string PasswordRegex = "^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!#$%&? \"]).*$";
     }
 }

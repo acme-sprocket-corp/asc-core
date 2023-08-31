@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Core.Application.Common.Responses;
 using Core.Domain.Customers;
-using MediatR;
 
 namespace Core.Application.Customers.AddCustomer
 {
     /// <summary>
     /// A request object for the creation of a new <see cref="Customer"/>.
     /// </summary>
-    public class AddCustomerRequest : IRequest<AddCustomerResponse>
+    public class AddCustomerRequest : IEnvelopeRequest<AddCustomerResponse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddCustomerRequest"/> class.

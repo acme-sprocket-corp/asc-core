@@ -1,10 +1,19 @@
-﻿using System.Text.Json.Serialization;
-using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using Core.Application.Common.Responses;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
-    public class LogInRequest : IRequest<LogInResponse>
+    /// <summary>
+    /// Request object to start a user logIn operation.
+    /// </summary>
+    public class LogInRequest : IEnvelopeRequest<LogInResponse>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogInRequest"/> class.
+        /// </summary>
+        /// <param name="userName">The userName for the user.</param>
+        /// <param name="password">The password for the user.</param>
         [JsonConstructor]
         public LogInRequest(string userName, string password)
         {
@@ -12,8 +21,16 @@ namespace Core.Infrastructure.Authentication.LogIn
             Password = password;
         }
 
+        /// <summary>
+        /// Gets the UserName attempting to logIn.
+        /// </summary>
+        [Required(AllowEmptyStrings = false)]
         public string UserName { get; }
 
+        /// <summary>
+        /// Gets the Password for the UserName attempting to logIn.
+        /// </summary>
+        [Required(AllowEmptyStrings = false)]
         public string Password { get; }
     }
 }

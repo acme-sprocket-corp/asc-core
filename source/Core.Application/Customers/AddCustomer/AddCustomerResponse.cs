@@ -1,26 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Application.Common.Responses;
 
 namespace Core.Application.Customers.AddCustomer
 {
-    public class AddCustomerResponse : ApplicationResponse
+    /// <summary>
+    /// The response object for adding a new customer.
+    /// </summary>
+    public class AddCustomerResponse
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddCustomerResponse"/> class.
+        /// </summary>
+        /// <param name="userName">The userName of the new customer.</param>
+        /// <param name="email">The email of the new customer.</param>
         public AddCustomerResponse(string userName, string email)
         {
             UserName = userName;
             Email = email;
         }
 
-        public AddCustomerResponse(ApplicationStatus applicationStatus, string errorMessage)
-            : base(applicationStatus, errorMessage)
-        {
-            UserName = string.Empty;
-            Email = string.Empty;
-        }
-
+        /// <summary>
+        /// Gets the UserName of the newly added customer.
+        /// </summary>
         [Required]
         public string UserName { get; }
 
+        /// <summary>
+        /// Gets the Email of the newly added customer.
+        /// </summary>
         [Required]
         public string Email { get; }
     }

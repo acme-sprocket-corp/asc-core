@@ -1,14 +1,13 @@
 ﻿using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Customers;
-using MediatR;
 
 namespace Core.Application.Customers.AddCustomer
 {
     /// <summary>
     /// A handler for <see cref="AddCustomerRequest"/> that returns a <see cref="AddCustomerResponse"/>.
     /// </summary>
-    public class AddCustomerHandler : IRequestHandler<AddCustomerRequest, AddCustomerResponse>
+    public class AddCustomerHandler : IEnvelopeHandler<AddCustomerRequest, AddCustomerResponse>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -27,7 +26,7 @@ namespace Core.Application.Customers.AddCustomer
         /// <param name="request">An instance of type <see cref="AddCustomerRequest"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="AddCustomerResponse"/> that represents the operation.</returns>
-        public async Task<AddCustomerResponse> Handle(AddCustomerRequest request, CancellationToken cancellationToken)
+        public async Task<IEnvelope<AddCustomerResponse>> Handle(AddCustomerRequest request, CancellationToken cancellationToken)
         {
             var passwordValidator = new PasswordValidator();
 
@@ -35,7 +34,7 @@ namespace Core.Application.Customers.AddCustomer
 
             if (!validationResult.IsValid)
             {
-                return new AddCustomerResponse(ApplicationStatus.AuthenticationError, validationResult.Errors.First().ErrorMessage);
+                return Envelope<AddCustomerResponse>.Failure(ApplicationStatus.AuthenticationError, validationResult.Errors.First().ErrorMessage);
             }
 
             var customer = CustomerFactory.CreateCustomer(request);

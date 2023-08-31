@@ -3,14 +3,13 @@ using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
-using MediatR;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
     /// <summary>
     /// A handler for <see cref="LogInRequest"/> that returns a <see cref="LogInResponse"/>.
     /// </summary>
-    public class LogInRequestHandler : IRequestHandler<LogInRequest, LogInResponse>
+    public class LogInRequestHandler : IEnvelopeHandler<LogInRequest, LogInResponse>
     {
         private readonly IClock _clock;
         private readonly ITokenService _tokenService;
@@ -35,20 +34,20 @@ namespace Core.Infrastructure.Authentication.LogIn
         /// <param name="request">An instance of type <see cref="LogInRequest"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="LogInResponse"/> that represents the operation.</returns>
-        public async Task<LogInResponse> Handle(LogInRequest request, CancellationToken cancellationToken)
+        public async Task<IEnvelope<LogInResponse>> Handle(LogInRequest request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.FindCustomerByName(request.UserName);
 
             if (customer == null)
             {
-                return new LogInResponse(ApplicationStatus.AuthenticationError, "UserName does not exist.");
+                return Envelope<LogInResponse>.Failure(ApplicationStatus.AuthenticationError, "UserName does not exist.");
             }
 
             var isPasswordCorrect = await _customerRepository.CheckCustomerPassword(customer, request.Password);
 
             if (!isPasswordCorrect)
             {
-                return new LogInResponse(ApplicationStatus.AuthenticationError, "Password is incorrect");
+                return Envelope<LogInResponse>.Failure(ApplicationStatus.AuthenticationError, "Password is incorrect");
             }
 
             var claims = new List<Claim>
@@ -64,7 +63,7 @@ namespace Core.Infrastructure.Authentication.LogIn
 
             await _customerRepository.UpdateCustomer(customer);
 
-            return new LogInResponse(accessToken, refreshToken);
+            return Envelope<LogInResponse>.Success(new LogInResponse(accessToken, refreshToken));
         }
     }
 }

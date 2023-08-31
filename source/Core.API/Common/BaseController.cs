@@ -25,11 +25,38 @@ namespace Core.API.Common
         /// Executes a request object and returns the appropriate response.
         /// </summary>
         /// <typeparam name="TResponse">The type of the response object.</typeparam>
-        /// <param name="request">A request object of type <see cref="IRequest{TResponse}"/>.</param>
+        /// <param name="request">A request object of type <see cref="IEnvelopeRequest{TResponse}"/>.</param>
         /// <param name="responseFunc">A call back in the event of a success.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="IActionResult"/> representing the asynchronous operation.</returns>
-        protected async Task<IActionResult> Execute<TResponse>(IRequest<TResponse> request, Func<TResponse, IActionResult> responseFunc)
-            where TResponse : ApplicationResponse
+        protected async Task<IActionResult> Execute<TResponse>(IEnvelopeRequest<TResponse> request, Func<IEnvelope<TResponse>, IActionResult> responseFunc)
+        {
+            var validationResult = ObjectVerification.Validate(request);
+            if (validationResult.Failed)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+
+            try
+            {
+                var response = await _mediator.Send(request);
+
+                return responseFunc.Invoke(response);
+            }
+            catch (Exception exception)
+            {
+                await _mediator.Publish(new GlobalExceptionOccurred(exception));
+
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        /// <summary>
+        /// Executes a request object and returns the appropriate response.
+        /// </summary>
+        /// <param name="request">A request object of type <see cref="IEnvelopeRequest{TResponse}"/>.</param>
+        /// <param name="responseFunc">A call back in the event of a success.</param>
+        /// <returns>A <see cref="Task"/> of type <see cref="IActionResult"/> representing the asynchronous operation.</returns>
+        protected async Task<IActionResult> Execute(IEnvelopeRequest request, Func<IEnvelope<Unit>, IActionResult> responseFunc)
         {
             var validationResult = ObjectVerification.Validate(request);
             if (validationResult.Failed)

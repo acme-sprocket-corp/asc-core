@@ -25,17 +25,17 @@ namespace Core.Application.Customers.Common
         /// </summary>
         /// <param name="result">The <see cref="IdentityResult"/> from object creation.</param>
         /// <param name="customer">The initial <see cref="Customer"/> being added to persistence.</param>
-        /// <returns>A new <see cref="AddCustomerResponse"/> instance.</returns>
-        public static AddCustomerResponse CreateCustomerResponse(IdentityResult result, Customer customer)
+        /// <returns>An <see cref="IEnvelope{AddCustomerResponse}"/> instance.</returns>
+        public static IEnvelope<AddCustomerResponse> CreateCustomerResponse(IdentityResult result, Customer customer)
         {
             if (result.Succeeded)
             {
-                return new AddCustomerResponse(customer.UserName, customer.Email);
+                return Envelope<AddCustomerResponse>.Success(new AddCustomerResponse(customer.UserName, customer.Email));
             }
 
             var errors = result.Errors.FirstOrDefault() != null ? result.Errors.First().Description : string.Empty;
 
-            return new AddCustomerResponse(ApplicationStatus.AuthenticationError, errors);
+            return Envelope<AddCustomerResponse>.Failure(ApplicationStatus.AuthenticationError, errors);
         }
     }
 }

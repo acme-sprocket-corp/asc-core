@@ -1,8 +1,10 @@
-﻿using Core.Domain.Customers;
+﻿using Core.Application.Common.Responses;
+using Core.Domain.Customers;
 using Core.Infrastructure.DataAccess.Common;
 using Core.Infrastructure.Dependencies;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Tests.Integration.Common
@@ -11,10 +13,10 @@ namespace Core.Tests.Integration.Common
     {
         private static IServiceProvider? _provider;
 
-        public static IRequestHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
-            where TRequest : IRequest<TResponse>
+        public static IRequestHandler<TRequest, IEnvelope<TResponse>> GetHandler<TRequest, TResponse>()
+            where TRequest : IEnvelopeRequest<TResponse>
         {
-            return Container().GetRequiredService<IRequestHandler<TRequest, TResponse>>();
+            return Container().GetRequiredService<IRequestHandler<TRequest, IEnvelope<TResponse>>>();
         }
 
         public static ApplicationContext GetDatabaseContext()
@@ -47,8 +49,8 @@ namespace Core.Tests.Integration.Common
 
                 services.AddLogging();
 
-                services.AddSqlServer<ApplicationContext>(
-                    "Server=(localdb)\\mssqllocaldb;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true");
+                services.AddDbContext<ApplicationContext>(builder => builder.UseSqlServer(
+                    "Server=.\\SQLExpress;Database=ASC.Tests;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=True;TrustServerCertificate=true"));
 
                 _provider = services.BuildServiceProvider();
             }
