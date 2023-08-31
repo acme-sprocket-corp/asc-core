@@ -32,7 +32,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
 
-            Assert.AreEqual(Status.AuthenticationError, result.Status);
+            Assert.AreEqual(ApplicationStatus.AuthenticationError, result.Status);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
 
-            Assert.AreEqual(Status.AuthenticationError, result.Status);
+            Assert.AreEqual(ApplicationStatus.AuthenticationError, result.Status);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
 
-            Assert.AreEqual(Status.Success, result.Status);
+            Assert.AreEqual(ApplicationStatus.Success, result.Status);
         }
     }
 }

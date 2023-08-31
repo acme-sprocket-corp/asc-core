@@ -35,7 +35,7 @@ namespace Core.Application.Customers.Common
 
             var errors = result.Errors.FirstOrDefault() != null ? result.Errors.First().Description : string.Empty;
 
-            return new AddCustomerResponse(Status.AuthenticationError, errors);
+            return new AddCustomerResponse(ApplicationStatus.AuthenticationError, errors);
         }
     }
 }

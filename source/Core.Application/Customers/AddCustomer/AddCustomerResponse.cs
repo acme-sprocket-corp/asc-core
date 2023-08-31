@@ -11,8 +11,8 @@ namespace Core.Application.Customers.AddCustomer
             Email = email;
         }
 
-        public AddCustomerResponse(Status status, string errorMessage)
-            : base(status, errorMessage)
+        public AddCustomerResponse(ApplicationStatus applicationStatus, string errorMessage)
+            : base(applicationStatus, errorMessage)
         {
             UserName = string.Empty;
             Email = string.Empty;

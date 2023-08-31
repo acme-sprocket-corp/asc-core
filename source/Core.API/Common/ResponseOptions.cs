@@ -14,8 +14,8 @@ namespace Core.API.Common
         {
             return applicationResponse.Status switch
             {
-                Status.Success => successResult,
-                Status.ValidationError => new BadRequestObjectResult(applicationResponse),
+                ApplicationStatus.Success => successResult,
+                ApplicationStatus.ValidationError => new BadRequestObjectResult(applicationResponse),
                 _ => new BadRequestResult(),
             };
         }

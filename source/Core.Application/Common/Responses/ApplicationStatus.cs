@@ -1,6 +1,9 @@
 ﻿namespace Core.Application.Common.Responses
 {
-    public enum Status
+    /// <summary>
+    /// Describes the current status of the application.
+    /// </summary>
+    public enum ApplicationStatus
     {
         /// <summary>
         /// Request succeeded.

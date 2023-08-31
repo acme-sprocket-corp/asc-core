@@ -35,7 +35,7 @@ namespace Core.Application.Customers.AddCustomer
 
             if (!validationResult.IsValid)
             {
-                return new AddCustomerResponse(Status.AuthenticationError, validationResult.Errors.First().ErrorMessage);
+                return new AddCustomerResponse(ApplicationStatus.AuthenticationError, validationResult.Errors.First().ErrorMessage);
             }
 
             var customer = CustomerFactory.CreateCustomer(request);

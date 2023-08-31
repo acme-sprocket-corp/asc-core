@@ -41,14 +41,14 @@ namespace Core.Infrastructure.Authentication.LogIn
 
             if (customer == null)
             {
-                return new LogInResponse(Status.AuthenticationError, "UserName does not exist.");
+                return new LogInResponse(ApplicationStatus.AuthenticationError, "UserName does not exist.");
             }
 
             var isPasswordCorrect = await _customerRepository.CheckCustomerPassword(customer, request.Password);
 
             if (!isPasswordCorrect)
             {
-                return new LogInResponse(Status.AuthenticationError, "Password is incorrect");
+                return new LogInResponse(ApplicationStatus.AuthenticationError, "Password is incorrect");
             }
 
             var claims = new List<Claim>

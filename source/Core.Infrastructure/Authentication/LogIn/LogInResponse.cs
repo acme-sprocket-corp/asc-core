@@ -1,27 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Application.Common.Responses;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
-    public class LogInResponse : ApplicationResponse
+    /// <summary>
+    /// The response object from a user attempting to logIn.
+    /// </summary>
+    public class LogInResponse
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogInResponse"/> class.
+        /// </summary>
+        /// <param name="accessToken">The access token for the user.</param>
+        /// <param name="refreshToken">The refresh token for the user.</param>
         public LogInResponse(string accessToken, string refreshToken)
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
         }
 
-        public LogInResponse(Status status, string errorMessage)
-            : base(status, errorMessage)
-        {
-            AccessToken = string.Empty;
-            RefreshToken = string.Empty;
-        }
-
-        [Required]
+        /// <summary>
+        /// Gets the short lived access token.
+        /// </summary>
+        [Required(AllowEmptyStrings = false)]
         public string AccessToken { get; }
 
-        [Required]
+        /// <summary>
+        /// Gets the longer lived refresh token.
+        /// </summary>
+        [Required(AllowEmptyStrings = false)]
         public string RefreshToken { get; }
     }
 }
