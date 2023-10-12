@@ -1,4 +1,8 @@
-﻿using Core.Infrastructure.DataAccess.Common;
+﻿// <copyright file="DataAccess.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Infrastructure.DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

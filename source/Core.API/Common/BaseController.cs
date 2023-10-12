@@ -1,4 +1,8 @@
-﻿using Core.Application.Common.Responses;
+﻿// <copyright file="BaseController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Application.Common.Responses;
 using Core.Infrastructure.Exceptions.GlobalExceptionHandler;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

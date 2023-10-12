@@ -1,4 +1,8 @@
-﻿using Core.Application.Customers.Common;
+﻿// <copyright file="CustomerRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Application.Customers.Common;
 using Core.Domain.Customers;
 using Microsoft.AspNetCore.Identity;
 

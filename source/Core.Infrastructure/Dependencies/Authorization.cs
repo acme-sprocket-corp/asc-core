@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿// <copyright file="Authorization.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Text;
 using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.DataAccess.Common;

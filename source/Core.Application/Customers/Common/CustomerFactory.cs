@@ -1,4 +1,8 @@
-﻿using Core.Application.Common.Responses;
+﻿// <copyright file="CustomerFactory.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Application.Common.Responses;
 using Core.Application.Customers.AddCustomer;
 using Core.Domain.Customers;
 using Microsoft.AspNetCore.Identity;

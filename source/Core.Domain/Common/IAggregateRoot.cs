@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿// <copyright file="IAggregateRoot.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using MediatR;
 
 namespace Core.Domain.Common
 {

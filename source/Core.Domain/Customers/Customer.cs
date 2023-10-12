@@ -1,4 +1,8 @@
-﻿using Core.Domain.Common.Clock;
+﻿// <copyright file="Customer.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Domain.Common.Clock;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 

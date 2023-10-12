@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿// <copyright file="PasswordRequirements.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Text.RegularExpressions;
 
 namespace Core.Domain.Customers
 {

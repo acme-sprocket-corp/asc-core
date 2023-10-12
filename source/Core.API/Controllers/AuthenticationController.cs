@@ -1,4 +1,8 @@
-﻿using Core.API.Common;
+﻿// <copyright file="AuthenticationController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.API.Common;
 using Core.Application.Customers.AddCustomer;
 using Core.Infrastructure.Authentication.LogIn;
 using Core.Infrastructure.Authentication.LogOut;

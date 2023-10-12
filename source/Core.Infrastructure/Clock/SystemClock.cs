@@ -1,4 +1,8 @@
-﻿using Core.Domain.Common.Clock;
+﻿// <copyright file="SystemClock.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Domain.Common.Clock;
 
 namespace Core.Infrastructure.Clock
 {

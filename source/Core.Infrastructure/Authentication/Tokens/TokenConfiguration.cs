@@ -1,4 +1,8 @@
-﻿namespace Core.Infrastructure.Authentication.Tokens
+﻿// <copyright file="TokenConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.Infrastructure.Authentication.Tokens
 {
     /// <summary>
     /// Container for all JWT related properties.

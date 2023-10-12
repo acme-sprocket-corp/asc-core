@@ -1,4 +1,8 @@
-﻿namespace Core.Domain.Common.Clock
+﻿// <copyright file="IClock.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.Domain.Common.Clock
 {
     /// <summary>
     /// An interface to abstract SystemClock functions.

@@ -1,4 +1,8 @@
-﻿using System.Security.Claims;
+﻿// <copyright file="LogInRequestHandler.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Security.Claims;
 using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;

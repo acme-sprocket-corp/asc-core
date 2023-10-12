@@ -1,4 +1,8 @@
-﻿namespace Core.Application.Common.Responses
+﻿// <copyright file="ApplicationStatus.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.Application.Common.Responses
 {
     /// <summary>
     /// Describes the current status of the application.

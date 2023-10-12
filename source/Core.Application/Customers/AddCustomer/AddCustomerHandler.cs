@@ -1,4 +1,8 @@
-﻿using Core.Application.Common.Responses;
+﻿// <copyright file="AddCustomerHandler.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Customers;
 

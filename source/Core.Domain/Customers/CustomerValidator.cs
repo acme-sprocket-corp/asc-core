@@ -1,4 +1,8 @@
-﻿using FluentValidation;
+﻿// <copyright file="CustomerValidator.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using FluentValidation;
 
 namespace Core.Domain.Customers
 {

@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// <copyright file="Application.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Reflection;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;

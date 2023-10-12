@@ -1,4 +1,8 @@
-﻿using Azure.Identity;
+﻿// <copyright file="SecretClientFactory.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Core.Infrastructure.Authentication.Tokens;
 using Microsoft.Extensions.Configuration;

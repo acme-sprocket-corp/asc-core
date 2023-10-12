@@ -1,4 +1,8 @@
-﻿namespace Core.API.Common
+﻿// <copyright file="ObjectVerificationResult.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.API.Common
 {
     /// <summary>
     /// Represents the status of a Validation result.

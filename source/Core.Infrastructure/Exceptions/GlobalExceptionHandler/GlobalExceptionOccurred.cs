@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿// <copyright file="GlobalExceptionOccurred.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using MediatR;
 
 namespace Core.Infrastructure.Exceptions.GlobalExceptionHandler
 {

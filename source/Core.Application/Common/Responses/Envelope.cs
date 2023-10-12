@@ -1,4 +1,8 @@
-﻿namespace Core.Application.Common.Responses
+﻿// <copyright file="Envelope.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.Application.Common.Responses
 {
     /// <inheritdoc/>
     public class Envelope<TResponse> : IEnvelope<TResponse>

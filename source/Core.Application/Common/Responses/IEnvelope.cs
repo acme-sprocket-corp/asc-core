@@ -1,4 +1,8 @@
-﻿namespace Core.Application.Common.Responses
+﻿// <copyright file="IEnvelope.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace Core.Application.Common.Responses
 {
     /// <summary>
     /// Interface for an Envelope response wrapper.

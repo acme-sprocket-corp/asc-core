@@ -73,7 +73,6 @@ csharp_style_expression_bodied_local_functions = false:silent
 
 dotnet_diagnostic.sa1101.severity = none
 dotnet_diagnostic.sa1309.severity = none
-dotnet_diagnostic.sa1633.severity = none
 
 dotnet_diagnostic.ide0005.severity = warning
 dotnet_diagnostic.ide0090.severity = none

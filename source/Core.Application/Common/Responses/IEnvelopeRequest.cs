@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿// <copyright file="IEnvelopeRequest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using MediatR;
 
 namespace Core.Application.Common.Responses
 {

@@ -1,4 +1,8 @@
-﻿using Core.Application.Common.Responses;
+﻿// <copyright file="ResponseOptions.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Core.Application.Common.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.API.Common
