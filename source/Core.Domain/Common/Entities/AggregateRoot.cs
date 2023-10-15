@@ -4,7 +4,7 @@
 
 using MediatR;
 
-namespace Core.Domain.Common
+namespace Core.Domain.Common.Entities
 {
     /// <inheritdoc />
     public abstract class AggregateRoot : IAggregateRoot

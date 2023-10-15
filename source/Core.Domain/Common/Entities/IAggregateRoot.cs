@@ -4,7 +4,7 @@
 
 using MediatR;
 
-namespace Core.Domain.Common
+namespace Core.Domain.Common.Entities
 {
     /// <summary>
     /// An interface that designates an object that may compose other minor objects.
