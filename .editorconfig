@@ -71,9 +71,9 @@ csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 
-dotnet_diagnostic.sa1101.severity = none
-dotnet_diagnostic.sa1309.severity = none
-
-dotnet_diagnostic.ide0005.severity = warning
-dotnet_diagnostic.ide0090.severity = none
-dotnet_diagnostic.ide0063.severity = none
+dotnet_diagnostic.SA1101.severity = none
+dotnet_diagnostic.SA1309.severity = none
+dotnet_diagnostic.IDE0270.severity = none
+dotnet_diagnostic.IDE0290.severity = none
+dotnet_diagnostic.IDE0305.severity = none
+dotnet_diagnostic.IDE0028.severity = none
