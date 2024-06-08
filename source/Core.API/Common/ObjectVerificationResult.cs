@@ -1,5 +1,5 @@
-﻿// <copyright file="ObjectVerificationResult.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="ObjectVerificationResult.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
 namespace Core.API.Common

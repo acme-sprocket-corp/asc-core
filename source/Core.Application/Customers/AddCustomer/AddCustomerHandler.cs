@@ -1,5 +1,5 @@
-﻿// <copyright file="AddCustomerHandler.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="AddCustomerHandler.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
 using Core.Application.Common.Responses;

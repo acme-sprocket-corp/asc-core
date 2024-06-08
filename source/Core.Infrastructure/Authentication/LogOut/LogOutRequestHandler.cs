@@ -1,5 +1,5 @@
-﻿// <copyright file="LogOutRequestHandler.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="LogOutRequestHandler.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
 using Core.Application.Common.Responses;

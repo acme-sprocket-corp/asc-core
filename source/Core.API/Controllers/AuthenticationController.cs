@@ -1,5 +1,5 @@
-﻿// <copyright file="AuthenticationController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="AuthenticationController.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
 using Core.API.Common;
@@ -16,7 +16,7 @@ namespace Core.API.Controllers
     /// Controller for all authentication based actions.
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/authentication")]
     [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status400BadRequest)]
     public class AuthenticationController : BaseController
     {

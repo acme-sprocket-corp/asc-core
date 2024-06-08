@@ -1,17 +1,17 @@
-﻿// <copyright file="Customer.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="Customer.cs" company="Michael Bradvica LLC">
+// Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
+using ClearDomain.Identity.GuidPrimary;
 using Core.Domain.Common.Clock;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 
 namespace Core.Domain.Customers
 {
     /// <summary>
     /// An object that represents a user with account properties.
     /// </summary>
-    public sealed class Customer : IdentityUser<Guid>
+    public sealed class Customer : ClearDomainIdentityUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Customer"/> class.
@@ -46,7 +46,7 @@ namespace Core.Domain.Customers
         }
 
         /// <summary>
-        /// Gets a refresh token, a long lived token that allows a user to retrieve a new access token.
+        /// Gets a refresh token, a long-lived token that allows a user to retrieve a new access token.
         /// </summary>
         public string RefreshToken { get; private set; }
 
