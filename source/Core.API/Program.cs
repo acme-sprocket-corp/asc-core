@@ -2,9 +2,11 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
+using System.Reflection;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Infrastructure.Dependencies;
-using Microsoft.AspNetCore.Mvc;
+using MediatorBuddy.AspNet.Registration;
+using Serilog;
 
 namespace Core.API
 {
@@ -36,10 +38,8 @@ namespace Core.API
             builder.Services.AddCoreApplication();
             builder.Services.AddJwtAuthorization(tokenConfiguration);
             builder.Services.AddDataAccess(builder.Configuration.GetConnectionString("Database") ?? string.Empty);
-            builder.Services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+            builder.Services.AddMediatorBuddy(configuration => configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            builder.Services.AddSerilog(configuration => configuration.WriteTo.Console());
 
             var app = builder.Build();
 

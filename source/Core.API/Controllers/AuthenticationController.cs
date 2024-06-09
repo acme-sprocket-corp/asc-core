@@ -6,6 +6,7 @@ using Core.Application.Customers.AddCustomer;
 using Core.Infrastructure.Authentication.LogIn;
 using Core.Infrastructure.Authentication.LogOut;
 using MediatorBuddy.AspNet;
+using MediatorBuddy.AspNet.Attributes;
 using MediatorBuddy.AspNet.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -36,11 +37,11 @@ namespace Core.API.Controllers
         /// <param name="request">An instance of <see cref="AddCustomerRequest"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="IActionResult"/> representing the asynchronous operation.</returns>
         [AllowAnonymous]
-        [HttpPost("AddCustomer", Name = "AddCustomer")]
+        [HttpPost("add-customer", Name = "AddCustomer")]
         [ProducesResponseType(typeof(AddCustomerResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> AddCustomer(AddCustomerRequest request)
         {
-            return await ExecuteRequest(request, ResponseOptions.OkResponse<AddCustomerResponse>());
+            return await ExecuteRequest(request, ResponseOptions.CreatedResponse<AddCustomerResponse>(response => new Uri($"{response.UserName}")));
         }
 
         /// <summary>
@@ -49,7 +50,9 @@ namespace Core.API.Controllers
         /// <param name="request">An instance of <see cref="LogInRequest"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="IActionResult"/> representing the asynchronous operation.</returns>
         [AllowAnonymous]
-        [HttpPost("LogIn", Name = "LogIn")]
+        [HttpPost("log-in", Name = "LogIn")]
+        [MediatorBuddy404ErrorResponse]
+        [MediatorBuddy401ErrorResponse]
         [ProducesResponseType(typeof(LogInResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> LogIn(LogInRequest request)
         {
@@ -62,9 +65,10 @@ namespace Core.API.Controllers
         /// <param name="request">An instance of <see cref="LogOutRequest"/>.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="IActionResult"/> representing the asynchronous operation.</returns>
         [Authorize]
-        [HttpPost("LogOut", Name = "LogOut")]
+        [HttpPost("log-out", Name = "LogOut")]
+        [MediatorBuddy404ErrorResponse]
+        [MediatorBuddy500ErrorResponse]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LogOut(LogOutRequest request)
         {
             return await ExecuteRequest(request, ResponseOptions.NoContentResponse<Unit>());

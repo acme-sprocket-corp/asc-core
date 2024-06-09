@@ -8,6 +8,7 @@
     <PackageReference Include="AspNetCoreAnalyzers" Version="0.3.0" />
     <PackageReference Include="MediatorBuddy.AspNet" Version="0.9.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
