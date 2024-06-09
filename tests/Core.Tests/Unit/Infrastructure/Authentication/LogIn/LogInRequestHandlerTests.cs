@@ -1,10 +1,10 @@
-﻿using Core.Application.Common.Responses;
-using Core.Application.Customers.Common;
+﻿using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
 using Core.Domain.Customers;
 using Core.Infrastructure.Authentication.LogIn;
 using Core.Infrastructure.Authentication.Tokens;
 using Core.Tests.Common;
+using MediatorBuddy;
 using Moq;
 
 namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
@@ -33,7 +33,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
 
-            Assert.AreEqual(ApplicationStatus.AuthenticationError, result.Status);
+            Assert.AreEqual(ApplicationStatus.GeneralAuthError, result.Status);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Core.Tests.Unit.Infrastructure.Authentication.LogIn
 
             var result = await _handler.Handle(new LogInRequest(string.Empty, string.Empty), CancellationToken.None);
 
-            Assert.AreEqual(ApplicationStatus.AuthenticationError, result.Status);
+            Assert.AreEqual(ApplicationStatus.GeneralAuthError, result.Status);
         }
 
         [TestMethod]

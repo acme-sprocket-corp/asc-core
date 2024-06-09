@@ -3,17 +3,17 @@
 // </copyright>
 
 using System.Security.Claims;
-using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
 using Core.Infrastructure.Authentication.Tokens;
+using MediatorBuddy;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
     /// <summary>
     /// A handler for <see cref="LogInRequest"/> that returns a <see cref="LogInResponse"/>.
     /// </summary>
-    public class LogInRequestHandler : IEnvelopeHandler<LogInRequest, LogInResponse>
+    public class LogInRequestHandler : EnvelopeHandler<LogInRequest, LogInResponse>
     {
         private readonly IClock _clock;
         private readonly ITokenService _tokenService;
@@ -38,20 +38,20 @@ namespace Core.Infrastructure.Authentication.LogIn
         /// <param name="request">An instance of type <see cref="LogInRequest"/>.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
         /// <returns>A <see cref="Task"/> of type <see cref="LogInResponse"/> that represents the operation.</returns>
-        public async Task<IEnvelope<LogInResponse>> Handle(LogInRequest request, CancellationToken cancellationToken)
+        public override async Task<IEnvelope<LogInResponse>> Handle(LogInRequest request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.FindCustomerByName(request.UserName);
 
             if (customer == null)
             {
-                return Envelope<LogInResponse>.Failure(ApplicationStatus.AuthenticationError, "UserName does not exist.");
+                return UserDoesNotExist();
             }
 
             var isPasswordCorrect = await _customerRepository.CheckCustomerPassword(customer, request.Password);
 
             if (!isPasswordCorrect)
             {
-                return Envelope<LogInResponse>.Failure(ApplicationStatus.AuthenticationError, "Password is incorrect");
+                return PasswordIsIncorrect();
             }
 
             var claims = new List<Claim>
@@ -67,7 +67,7 @@ namespace Core.Infrastructure.Authentication.LogIn
 
             await _customerRepository.UpdateCustomer(customer);
 
-            return Envelope<LogInResponse>.Success(new LogInResponse(accessToken, refreshToken));
+            return Success(new LogInResponse(accessToken, refreshToken));
         }
     }
 }

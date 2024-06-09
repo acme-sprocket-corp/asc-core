@@ -1,6 +1,6 @@
-﻿using Core.Application.Common.Responses;
-using Core.Application.Customers.AddCustomer;
+﻿using Core.Application.Customers.AddCustomer;
 using Core.Tests.Integration.Common;
+using MediatorBuddy;
 
 namespace Core.Tests.Integration.Customers
 {

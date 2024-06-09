@@ -2,10 +2,11 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using Core.API.Common;
 using Core.Application.Customers.AddCustomer;
 using Core.Infrastructure.Authentication.LogIn;
 using Core.Infrastructure.Authentication.LogOut;
+using MediatorBuddy.AspNet;
+using MediatorBuddy.AspNet.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace Core.API.Controllers
     [ApiController]
     [Route("api/authentication")]
     [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status400BadRequest)]
-    public class AuthenticationController : BaseController
+    public class AuthenticationController : MediatorBuddyApi
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationController"/> class.
@@ -39,7 +40,7 @@ namespace Core.API.Controllers
         [ProducesResponseType(typeof(AddCustomerResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> AddCustomer(AddCustomerRequest request)
         {
-            return await Execute(request, ResponseOptions.OkObjectResponse);
+            return await ExecuteRequest(request, ResponseOptions.OkResponse<AddCustomerResponse>());
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Core.API.Controllers
         [ProducesResponseType(typeof(LogInResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> LogIn(LogInRequest request)
         {
-            return await Execute(request, ResponseOptions.OkObjectResponse);
+            return await ExecuteRequest(request, ResponseOptions.OkResponse<LogInResponse>());
         }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace Core.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> LogOut(LogOutRequest request)
         {
-            return await Execute(request, ResponseOptions.OkObjectResponse);
+            return await ExecuteRequest(request, ResponseOptions.NoContentResponse<Unit>());
         }
     }
 }

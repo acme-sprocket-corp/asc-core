@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Core.Application.Common.Responses;
+using MediatorBuddy;
 
 namespace Core.Infrastructure.Authentication.LogIn
 {
@@ -26,13 +26,13 @@ namespace Core.Infrastructure.Authentication.LogIn
         }
 
         /// <summary>
-        /// Gets the UserName attempting to logIn.
+        /// Gets the UserName attempting to log in.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         public string UserName { get; }
 
         /// <summary>
-        /// Gets the Password for the UserName attempting to logIn.
+        /// Gets the Password for the UserName attempting to log in.
         /// </summary>
         [Required(AllowEmptyStrings = false)]
         public string Password { get; }

@@ -2,9 +2,9 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using Core.Application.Common.Responses;
 using Core.Application.Customers.AddCustomer;
 using Core.Domain.Customers;
+using MediatorBuddy;
 using Microsoft.AspNetCore.Identity;
 
 namespace Core.Application.Customers.Common
@@ -29,7 +29,7 @@ namespace Core.Application.Customers.Common
         /// </summary>
         /// <param name="result">The <see cref="IdentityResult"/> from object creation.</param>
         /// <param name="customer">The initial <see cref="Customer"/> being added to persistence.</param>
-        /// <returns>An <see cref="IEnvelope{AddCustomerResponse}"/> instance.</returns>
+        /// <returns>An <see cref="IEnvelope{TResponse}"/> instance.</returns>
         public static IEnvelope<AddCustomerResponse> CreateCustomerResponse(IdentityResult result, Customer customer)
         {
             if (result.Succeeded)
@@ -39,7 +39,7 @@ namespace Core.Application.Customers.Common
 
             var errors = result.Errors.FirstOrDefault() != null ? result.Errors.First().Description : string.Empty;
 
-            return Envelope<AddCustomerResponse>.Failure(ApplicationStatus.AuthenticationError, errors);
+            return Envelope<AddCustomerResponse>.Failure(ApplicationStatus.GeneralAuthError, errors);
         }
     }
 }

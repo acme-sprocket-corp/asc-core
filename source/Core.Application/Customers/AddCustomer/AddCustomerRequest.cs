@@ -4,8 +4,8 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Core.Application.Common.Responses;
 using Core.Domain.Customers;
+using MediatorBuddy;
 
 namespace Core.Application.Customers.AddCustomer
 {

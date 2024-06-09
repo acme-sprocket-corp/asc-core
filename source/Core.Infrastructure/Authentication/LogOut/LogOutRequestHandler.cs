@@ -2,17 +2,17 @@
 // Copyright (c) Michael Bradvica LLC. All rights reserved.
 // </copyright>
 
-using Core.Application.Common.Responses;
 using Core.Application.Customers.Common;
 using Core.Domain.Common.Clock;
+using MediatorBuddy;
 using MediatR;
 
 namespace Core.Infrastructure.Authentication.LogOut
 {
     /// <summary>
-    /// A handler for <see cref="LogOutRequest"/> that returns an empty response..
+    /// A handler for <see cref="LogOutRequest"/> that returns an empty response.
     /// </summary>
-    public class LogOutRequestHandler : IEnvelopeHandler<LogOutRequest>
+    public class LogOutRequestHandler : EnvelopeHandler<LogOutRequest>
     {
         private readonly IClock _clock;
         private readonly ICustomerRepository _customerRepository;
@@ -28,19 +28,14 @@ namespace Core.Infrastructure.Authentication.LogOut
             _customerRepository = customerRepository;
         }
 
-        /// <summary>
-        /// A handler for the <see cref="LogOutRequest"/>.
-        /// </summary>
-        /// <param name="request">An instance off type <see cref="LogOutRequest"/>.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to prematurely end the operation.</param>
-        /// <returns>A <see cref="Task"/> of type <see cref="IEnvelope{Unit}"/> that represents the operation.</returns>
-        public async Task<IEnvelope<Unit>> Handle(LogOutRequest request, CancellationToken cancellationToken)
+        /// <inheritdoc />
+        public override async Task<IEnvelope<Unit>> Handle(LogOutRequest request, CancellationToken cancellationToken)
         {
             var customer = await _customerRepository.FindCustomerByName(request.UserName);
 
             if (customer == null)
             {
-                return Envelope<Unit>.Failure(ApplicationStatus.AuthenticationError);
+                return EntityWasNotFound();
             }
 
             customer.ResetRefreshToken(_clock);
@@ -49,10 +44,10 @@ namespace Core.Infrastructure.Authentication.LogOut
 
             if (result.Succeeded)
             {
-                return Envelope<Unit>.Success(Unit.Value);
+                return Success();
             }
 
-            return Envelope<Unit>.Failure(ApplicationStatus.AuthenticationError);
+            return OperationCouldNotBeCompleted();
         }
     }
 }

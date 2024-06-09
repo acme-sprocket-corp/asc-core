@@ -1,7 +1,7 @@
-﻿using Core.Application.Common.Responses;
-using Core.Domain.Customers;
+﻿using Core.Domain.Customers;
 using Core.Infrastructure.DataAccess.Common;
 using Core.Infrastructure.Dependencies;
+using MediatorBuddy;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
