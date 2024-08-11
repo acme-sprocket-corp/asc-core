@@ -19,7 +19,6 @@ namespace Core.API.Controllers
     /// </summary>
     [ApiController]
     [Route("api/authentication")]
-    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status400BadRequest)]
     public class AuthenticationController : MediatorBuddyApi
     {
         /// <summary>
@@ -56,7 +55,7 @@ namespace Core.API.Controllers
         [ProducesResponseType(typeof(LogInResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> LogIn(LogInRequest request)
         {
-            return await ExecuteRequest(request, ResponseOptions.OkResponse<LogInResponse>());
+            return await ExecuteRequest(request, ResponseOptions.OkObjectResponse<LogInResponse>());
         }
 
         /// <summary>
